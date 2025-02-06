@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Résultats de la Requête</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        pre {
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 5px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+<body>
+<h1>Résultats de la Requête</h1>
+
+<!-- Tableau pour afficher les données -->
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Table Name</th>
+        <th>Column Name</th>
+        <th>Encryption Algorithm</th>
+        <th>Created At</th>
+        <th>Created By</th>
+        <th>Active</th>
+    </tr>
+    </thead>
+    <tbody id="resultTableBody">
+    <!-- Les résultats seront ajoutés ici dynamiquement -->
+    </tbody>
+</table>
+
+<button onclick="goBack()">Retour</button> <!-- Bouton pour revenir à la page précédente -->
+
+<script>
+    // Fonction pour récupérer et afficher les données passées dans l'URL
+    window.onload = function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const resultData = urlParams.get("result");  // Récupérer le paramètre "result" de l'URL
+
+        // Vérifier si des résultats sont présents
+        if (resultData) {
+            const data = JSON.parse(decodeURIComponent(resultData)); // Convertir en objet JSON
+
+            // Afficher les résultats dans le tableau
+            const tableBody = document.getElementById("resultTableBody");
+
+            data.forEach(item => {
+                const row = document.createElement("tr");
+
+                // Créer une ligne pour chaque élément
+                row.innerHTML = `
+                        <td>${item.id}</td>
+                        <td>${item.tableName}</td>
+                        <td>${item.columnName}</td>
+                        <td>${item.encryptionAlgorithm}</td>
+                        <td>${item.createdAt}</td>
+                        <td>${item.createdBy}</td>
+                        <td>${item.active ? 'Oui' : 'Non'}</td>
+                    `;
+                tableBody.appendChild(row);  // Ajouter la ligne au tableau
+            });
+        } else {
+            // Si aucun résultat n'est passé
+            document.getElementById("resultTableBody").innerHTML = "<tr><td colspan='7'>Aucun résultat trouvé.</td></tr>";
+        }
+    };
+
+    // Fonction pour revenir à la page précédente
+    function goBack() {
+        window.history.back();
+    }
+</script>
+</body>
+</html>

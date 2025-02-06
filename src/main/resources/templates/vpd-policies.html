@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Politiques VPD</title>
+</head>
+<body>
+<h1>Politiques VPD</h1>
+
+<!-- Liste des politiques VPD -->
+<table border="1">
+    <thead>
+    <tr>
+        <th>Nom de la politique</th>
+        <th>Table concernée</th>
+        <th>Fonction</th>
+        <th>Types d'actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="policy : ${vpdPolicies}">
+        <td th:text="${policy.policyName}"></td>
+        <td th:text="${policy.tableName}"></td>
+        <td th:text="${policy.functionName}"></td>
+        <td th:text="${policy.statementTypes}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
